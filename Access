@@ -1,38 +1,21 @@
 --//
---  Network-Ownership.lua uses combined threads from v3rmillion and makes one network access.
---   There will be errors due to some patched while the rest DO work.
+--  Network-Ownership.lua is just a Network Bypasser
+--   There MIGHT be errors, but it still works ye?
 --   By the way, get the fuck out this code, k?
 --   I know you are a skid now since you're still here.
 --\\
-
-local NetworkAccess = coroutine.create(function()
-   settings().Physics.AllowSleep = false
-   while true do game:GetService("RunService").RenderStepped:Wait()
-   local TBL = game:GetService("Players"):GetChildren()
-   for _ = 1,#TBL do local Players = TBL[_]
-   if Players ~= game:GetService("Players").LocalPlayer then
-   Players.MaximumSimulationRadius = 0 Players.SimulationRadius = 0 end end
-   game:GetService("Players").LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)
-   game:GetService("Players").LocalPlayer.SimulationRadius = math.huge*math.huge end end)
-coroutine.resume(NetworkAccess)
-local hidprop = sethiddenproperty
-local simrad = setsimulationradius
-local Detected = ("[Network Ownership]: There are errors since some things are patched, most aren't though!")
-if hidprop then
-	game:GetService("RunService").RenderStepped:Connect(function()
-    	sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-	end)
-	spawn(function()
-    	while wait() do
-        	sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-        	sethiddenproperty(game.Players.LocalPlayer, "MaximumSimulationRadius", math.huge)
-    	end
-	end)
+local function networkacces()
+    local plrs = game:GetService("Players")
+    local plr = plrs.LocalPlayer
+    local Render = game:GetService("RunService").RenderStepped
+    local SR = math.huge*math.huge
+    local MSR = math.pow(math.huge,math.huge)
+    settings().Physics.AllowSleep = false
+    Render:Connect(function()
+        sethiddenproperty(plr,'MaximumSimulationRadius',MSR)
+        sethiddenproperty(plr,'SimulationRadius',SR)
+    end)
 end
-if simrad then
-	game:GetService("RunService").RenderStepped:Connect(function()
-    	setsimulationradius(math.huge)
-	end)
-end
-wait(0.7)
+networkacces()
+local Detected = ("[Network Ownership]: There are probably errors, but things work!")
 warn(Detected)
