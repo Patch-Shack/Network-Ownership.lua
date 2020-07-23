@@ -1,21 +1,15 @@
 --//
---  Network-Ownership.lua is just a Network Bypasser
---   There MIGHT be errors, but it still works ye?
---   By the way, get the fuck out this code, k?
---   I know you are a skid now since you're still here.
+-- Network-Ownership.lua is just a Network Bypasser
 --\\
-local function networkacces()
-    local plrs = game:GetService("Players")
-    local plr = plrs.LocalPlayer
-    local Render = game:GetService("RunService").RenderStepped
+
+local plr = game:GetService("Players").LocalPlayer
+plr.CharacterAdded:Connect(function(char)
     local SR = math.huge*math.huge
     local MSR = math.pow(math.huge,math.huge)
     settings().Physics.AllowSleep = false
-    Render:Connect(function()
-        sethiddenproperty(plr,'MaximumSimulationRadius',MSR)
-        sethiddenproperty(plr,'SimulationRadius',SR)
-    end)
-end
-networkacces()
+    wait()
+    sethiddenproperty(plr,'MaximumSimulationRadius',MSR)
+    sethiddenproperty(plr,'SimulationRadius',SR)
+end)
 local Detected = ("[Network Ownership]: There are probably errors, but things work!")
 warn(Detected)
