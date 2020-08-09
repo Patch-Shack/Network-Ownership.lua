@@ -1,15 +1,27 @@
---//
--- Network-Ownership.lua is just a Network Bypasser
---\\
-
-local plr = game:GetService("Players").LocalPlayer
-plr.CharacterAdded:Connect(function(char)
-    local SR = math.huge*math.huge
-    local MSR = math.pow(math.huge,math.huge)
-    settings().Physics.AllowSleep = false
+repeat
     wait()
-    sethiddenproperty(plr,'MaximumSimulationRadius',MSR)
-    sethiddenproperty(plr,'SimulationRadius',SR)
-end)
+until game:GetService("Players").LocalPlayer ~= nil
+
+if not game:GetService("Players").LocalPlayer.Character then
+    game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+end
+
+
 local Detected = ("[Network Ownership]: There are probably errors, but things work!")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Workspace = game:GetService("Workspace")
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.pow(math.huge, math.huge) * math.huge
+    pcall(function() sethiddenproperty(LocalPlayer, "SimulationRadius", math.pow(math.huge, math.huge) * math.huge) end)
+
+    for i, v in pairs(game.Players:GetPlayers()) do
+        if v ~= LocalPlayer then
+            LocalPlayer.MaximumSimulationRadius = math.pow(math.huge, math.huge) * math.huge
+            pcall(function() settings().Physics.AllowSleep = false ; sethiddenproperty(LocalPlayer, "SimulationRadius", math.pow(math.huge, math.huge) * math.huge) end)
+            LocalPlayer.ReplicationFocus = Workspace
+        end
+    end
+end)
+
 warn(Detected)
