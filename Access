@@ -7,7 +7,7 @@ if not game:GetService("Players").LocalPlayer.Character then
 end
 
 
-local Detected = ("[Network Ownership]: There are probably errors, but things work!")
+local Detected = ("[Net]: There are probably errors, but things work!")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Workspace = game:GetService("Workspace")
 
