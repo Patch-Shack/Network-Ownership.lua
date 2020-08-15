@@ -6,8 +6,18 @@ if not game:GetService("Players").LocalPlayer.Character then
     game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
 end
 
+local Exploit = (secure_load and "Sentinel") or (pebc_execute and "ProtoSmasher") or (is_sirhurt_closure and "Sirhurt") or (syn and "SynapseX") or ('Free')
+if Exploit == ("ProtoSmasher") then
+    getgenv().sethiddenproperty = set_hidden_property
+elseif Exploit == ("Sentinel") then
+    warn("[Net]: Sentinel doesn't have sethiddenproperty!")
+elseif Exploit == ("Free") then
+    warn("[Net]: Free exploits don't have sethiddenproperty!")
+end
 
-local Detected = ("[Net]: There are probably errors, but things work!")
+wait()
+
+local Warning = ("[Net]: There are probably errors, but things work!")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Workspace = game:GetService("Workspace")
 
@@ -24,4 +34,4 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-warn(Detected)
+warn(Warning)
